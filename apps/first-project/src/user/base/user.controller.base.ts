@@ -48,13 +48,28 @@ export class UserControllerBase {
   })
   async create(@common.Body() data: UserCreateInput): Promise<User> {
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        tasks: data.tasks
+          ? {
+              connect: data.tasks,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
         firstName: true,
         id: true,
         lastName: true,
         roles: true,
+
+        tasks: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         username: true,
       },
@@ -83,6 +98,13 @@ export class UserControllerBase {
         id: true,
         lastName: true,
         roles: true,
+
+        tasks: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         username: true,
       },
@@ -112,6 +134,13 @@ export class UserControllerBase {
         id: true,
         lastName: true,
         roles: true,
+
+        tasks: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         username: true,
       },
@@ -143,13 +172,28 @@ export class UserControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tasks: data.tasks
+            ? {
+                connect: data.tasks,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
           firstName: true,
           id: true,
           lastName: true,
           roles: true,
+
+          tasks: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           username: true,
         },
@@ -187,6 +231,13 @@ export class UserControllerBase {
           id: true,
           lastName: true,
           roles: true,
+
+          tasks: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           username: true,
         },
